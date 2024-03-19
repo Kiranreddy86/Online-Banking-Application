@@ -24,13 +24,12 @@ public class SecurityConfig {
     JwtAuthenticationFilter filter;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
-    {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/user/register","/user/login").permitAll()
+                .antMatchers("/user/register", "/user/login", "/admin/add").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -39,7 +38,6 @@ public class SecurityConfig {
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception {
